@@ -7,3 +7,5 @@ async function getDadJoke() {
 }
 
 getDadJoke();
+
+// I used icanhazdadjoke api which sends you a Random Dad Joke : https://icanhazdadjoke.com/api
