@@ -42,9 +42,9 @@ app.post("/signin", function (req, res) {
     return res.status(403).json({
       msg: "User doesnt exist in our in memory db",
     });
-  }
+}
 
-  var token = jwt.sign({ username: username }, jwtPassword);
+var token = jwt.sign({ username: username }, jwtPassword);
   return res.json({
     token,
   });
