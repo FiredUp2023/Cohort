@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const passportLocalMongoose = require('passport-local-mongoose');
 //const session = require('express-session');
 
-mongoose.connect('mongodb+srv://mohit:5GEwcf1Sm7PXJFol@cluster0.49ljzdb.mongodb.net/')
+mongoose.connect('YOUR MongoDB URL')
     .then(()=> { console.log("Connection Successful"); })
     .catch(() => { console.log("ERROR!!! in MONGO CONNECTION")})
 

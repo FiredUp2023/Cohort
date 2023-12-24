@@ -1,10 +1,10 @@
-const { Router } = require("express");
-const router = Router();
+const express = require("express");
+const router = express.Router();
 const userMiddleware = require("../middleware/user");
 const { User, Course } = require('../db/index')
 
 // User Routes
-app.post('/signup', async(req, res) => {
+router.post('/signup', async(req, res) => {
     // Implement user signup logic
         try{
         const { username, password } = req.headers;
@@ -24,7 +24,7 @@ app.post('/signup', async(req, res) => {
 
 });
 
-app.get('/courses', async(req, res) => {
+router.get('/courses', async(req, res) => {
     // Implement listing all courses logic
     try{
         const courses = await Course.find({});
@@ -35,11 +35,11 @@ app.get('/courses', async(req, res) => {
     }
 });
 
-app.post('/courses/:courseId', userMiddleware, async (req, res) => {
+router.post('/courses/:courseId', userMiddleware, async (req, res) => {
     // Implement course purchase logic
     try{
         const { courseId } = req.params;
-        const course = Course.findById(courseId);
+        const course = await Course.findOne({ _id : courseId });
         const user = await User.findOne({ username : req.headers.username })
         user.purchasedCourses.push(course);
         await user.save();
@@ -52,7 +52,7 @@ app.post('/courses/:courseId', userMiddleware, async (req, res) => {
     }
 });
 
-app.get('/purchasedCourses', userMiddleware, async (req, res) => {
+router.get('/purchasedCourses', userMiddleware, async (req, res) => {
     // Implement fetching purchased courses logic
     try{
         const username = req.headers.username;
@@ -66,3 +66,5 @@ app.get('/purchasedCourses', userMiddleware, async (req, res) => {
         res.sendStatus(404);
     }
 });
+
+module.exports = router;
