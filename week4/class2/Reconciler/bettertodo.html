@@ -61,14 +61,12 @@
                         if(old.id === todo.id){
                             found = true;
                             if(old.title !== todo.title || old.description !== todo.description || old.completed !== todo.completed){
-                                //updateTodo(todo)
                                 updated.push(todo)
                                 break;
                             }
                         }
                     }
                     if(!found){
-                        //addTodo(todo);
                         added.push(todo);
                     }
                 }
@@ -82,7 +80,6 @@
                         }
                     }
                     if(!found){
-                        //removeTodo(old);
                         deleted.push(old);
                     }
                 }
@@ -101,14 +98,14 @@
             async function addTodoState() {
 //                const title = document.getElementById("title").value;
 //                const description = document.getElementById("description").value;
+//                todoState.push({
+//                    title: title, description: description, id: globalId++, completed: completed
+//                })
                 const res = await fetch("https://sum-server.100xdevs.com/todos")
                 const json = await res.json();
                 todoState = json.todos
                 console.clear();
                 console.log(todoState)
-//                todoState.push({
-//                    title: title, description: description, id: globalId++, completed: completed
-//                })
                 updateState(todoState);
             }
         </script>
