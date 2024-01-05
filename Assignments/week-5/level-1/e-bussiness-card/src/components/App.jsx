@@ -14,7 +14,7 @@ function App() {
 
   return (
     <>
-    <div className='flex justify-center'>
+    <div className='flex flex-col justify-center items-center'>
       {cards.map((card) => {
           return <Card key={card._id} card={card}/>
       })}
