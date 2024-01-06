@@ -25,9 +25,7 @@ app.get('/api/cards', async (req, res) => {
 app.post('/api/card', async(req, res) => {
     try{
         const card = req.body.card;
-        console.log(card)
         const response = cardSchema.safeParse(card);
-        console.log(response)
         if(!response.success){
             return res.sendStatus(400);
         }

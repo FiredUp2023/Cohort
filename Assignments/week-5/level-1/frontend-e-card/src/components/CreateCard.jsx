@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Input from "./Input";
 import PlusButton from "./PlusButton";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Card from "./Card";
 
 export default function CreateCard() {
@@ -16,6 +16,7 @@ export default function CreateCard() {
     const card = { name, description, interests, gituser, socials };
     
     const submitCard = async () => {
+        if(name === "" || gituser === "" || description === "" || interests === "") return;
         await fetch('http://localhost:3000/api/card', {
             method: "POST",
             body: JSON.stringify({ card }),
@@ -34,7 +35,7 @@ export default function CreateCard() {
                     <Input type='text' placeholder='Your Interests...' value={interests} handleChange={(e) => setInterests(e.target.value)}/>        
                     <Input type='text' placeholder='Your github username... (card image will be same as github avatar)' value={gituser} handleChange={(e) => setGituser(e.target.value)}/>        
                     <div className="my-3">
-                        Socials: <PlusButton onClick={() => setSocials([...socials, {social: "", url: "" }])} />
+                        Socials: <PlusButton onClick={() => setSocials([...socials, {social: "", url: "" }])}>Add</PlusButton>
                         {socials.map((social) => {
                             return (
                                 <div key={social._id} className="flex justify-between">
@@ -47,6 +48,9 @@ export default function CreateCard() {
                                 </div>
                             )
                         })}
+                        {socials.length === 0 ? "": <div className="mt-2">
+                            <PlusButton onClick={() => (setSocials(socials.filter((social, index) => (index === socials.length-1? false : true))))} >remove</PlusButton>
+                        </div>}
                     </div>
                     <div className="flex justify-center">
                                 <button

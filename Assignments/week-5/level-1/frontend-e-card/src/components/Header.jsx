@@ -1,4 +1,4 @@
-import { Link, NavLink} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Button from './Button';
 export default function Header() {
     return (
@@ -9,7 +9,7 @@ export default function Header() {
                        <b>Developers-E-Card</b>
                     </Link>
                     <div className="flex items-center lg:order-2">
-                    <Link to="https://github.com/mohits-git" className="text-white flex items-center">
+                    <Link to="https://github.com/mohits-git/e-developer-card" className="text-white flex items-center">
                         <b>Github Repo</b>
                         <img
                             src="https://pngimg.com/d/github_PNG90.png"
