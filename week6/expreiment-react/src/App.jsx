@@ -1,22 +1,23 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import './App.css'
 
 export default function App() {
-    return (
-        <CardWrapper><TextComponent /></CardWrapper>
-    )
-}
+    const [inputValue, setInputValue] = useState('');
+    const [count, setCount] = useState(0);
 
-function CardWrapper({children}) {
+    const sum = useMemo(() => {
+        let value = 0;
+        for(let i = 0; i<=inputValue; i++){
+            value+=i;
+        }
+        return value;
+    }, [inputValue])
+
     return (
-        <div style={{ border: "2px solid black", padding: 20, borderRadius: 10}}>
-        {children}
+        <div>
+            <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)} />
+            <p>Sum form 1 to {inputValue} is {sum}</p>
+            <button onClick={() => setCount(count+1)}>Counter({count})</button>
         </div>
-    )
-}
-
-function TextComponent() {
-    return (
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo dolorum velit obcaecati sed in assumenda eum voluptatibus reiciendis voluptate, iusto odio veniam labore ab provident, accusamus praesentium soluta placeat nam.</p>
     )
 }
