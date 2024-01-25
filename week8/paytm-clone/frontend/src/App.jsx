@@ -1,9 +1,8 @@
-
 function App() {
 
   return (
     <div>
-        Hello world
+      Paytm Lite (sasta version)
     </div>
   )
 }
