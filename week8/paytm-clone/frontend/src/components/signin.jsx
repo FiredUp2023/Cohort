@@ -8,7 +8,7 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button"
 import { Card, CardTitle, CardDescription, CardHeader, CardContent, CardFooter } from "./ui/card";
-import { useCookies } from "react-cookie";
+import useAuth from "../AuthProvider";
 
 const signinSchema = z.object({
     email: z.string().email(),
@@ -20,15 +20,25 @@ export default function SignIn() {
         resolver: zodResolver(signinSchema)
     })
     const navigate = useNavigate();
-    const [cookies, setCookies] = useCookies();
+    const { login } = useAuth();
 
     const onSubmit = async (data) => {
-        const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
-            username: data.email,
-            password: data.password
-        })
-        setCookies('sid', response.data.token);
-        navigate('/dashboard')
+        try{
+            const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
+                username: data.email,
+                password: data.password
+            })
+            login({ token: response.data.token });
+            navigate('/dashboard')
+        }
+        catch(err){
+            if(err.response.status === 401){
+                setError("root", { message: err.response.data.message});
+            }
+            else{
+                setError("root", { message: err.message });
+            }
+        }
     }
 
     return (
@@ -69,11 +79,6 @@ export default function SignIn() {
                     </div>
                 </CardContent>
                 <CardFooter className="flex flex-col items-center justify-center">
-                    {errors.root && (
-                        <div aria-live="polite" aria-atomic="true">
-                            <p className="mt-1 text-red-500 text-sm">{errors.root.message}</p>
-                        </div>
-                    )}
                     <Button className="w-full" size="lg" disabled={isSubmitting}>{isSubmitting? "Please wait...": "Log In"}</Button>
                     <div className="mt-2">
                         Don&apos;t have an account? <Link to="/signup" className="text-semibold underline">Sign Up</Link>

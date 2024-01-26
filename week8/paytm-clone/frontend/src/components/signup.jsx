@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 // ui imports -- ignore :)
 import { Label } from "@radix-ui/react-label";
@@ -8,7 +8,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button"
 import { Card, CardTitle, CardDescription, CardHeader, CardContent, CardFooter } from "./ui/card";
 import { z } from "zod";
-import { useCookies } from "react-cookie";
+import useAuth from "../AuthProvider";
 
 const signupSchema = z.object({
     firstName: z.string().min(1, { message: "First Name is required" }),
@@ -22,19 +22,27 @@ export default function SignUp() {
         resolver: zodResolver(signupSchema)
     })
     const navigate = useNavigate();
-    const [cookies, setCookies] = useCookies();
-
-    console.log(cookies.test)
+    const { login } = useAuth();
 
     const onSubmit = async (data) => {
-        const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
-            firstName: data.firstName,
-            lastName: data.lastName,
-            username: data.email,
-            password: data.password
-        })
-        setCookies('sid', response.data.token);
-        navigate('/dashboard')
+        try {
+            const response = await axios.post("http://localhost:3000/api/v1/user/signup", {
+                firstName: data.firstName,
+                lastName: data.lastName,
+                username: data.email,
+                password: data.password
+            })
+            login({ token: response.data.token });
+            navigate('/dashboard')
+        }
+        catch (err) {
+            if (err.status === 401) {
+                setError("root", { message: err.response.data.message });
+            }
+            else {
+                setError("root", { message: err.message });
+            }
+        }
     }
 
     return (

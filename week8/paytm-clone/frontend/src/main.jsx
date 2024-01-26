@@ -6,11 +6,11 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Signup from './pages/signup.jsx'
 import Signin from './pages/signin.jsx'
 import Dashboard from './pages/dashboard.jsx'
-import { CookiesProvider } from 'react-cookie'
+import { AuthProvider } from './AuthProvider.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <CookiesProvider defaultSetOptions={{ path: '/' }}>
+        <AuthProvider>
             <BrowserRouter>
                 <Routes>
                     <Route path='/' element={<App />} />
@@ -19,6 +19,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path='/dashboard' element={<Dashboard />} />
                 </Routes>
             </BrowserRouter>
-        </CookiesProvider>
+        </AuthProvider>
     </React.StrictMode>,
 )
