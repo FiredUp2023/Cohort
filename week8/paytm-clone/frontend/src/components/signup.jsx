@@ -32,7 +32,7 @@ export default function SignUp() {
                 username: data.email,
                 password: data.password
             })
-            login({ token: response.data.token });
+            login(response.data.token);
             navigate('/dashboard')
         }
         catch (err) {

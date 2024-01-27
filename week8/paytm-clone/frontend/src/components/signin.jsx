@@ -28,7 +28,7 @@ export default function SignIn() {
                 username: data.email,
                 password: data.password
             })
-            login({ token: response.data.token });
+            login(response.data.token);
             navigate('/dashboard')
         }
         catch(err){
