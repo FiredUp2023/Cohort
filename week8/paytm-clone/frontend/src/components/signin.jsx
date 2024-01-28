@@ -23,7 +23,7 @@ export default function SignIn() {
     const { login } = useAuth();
 
     const onSubmit = async (data) => {
-        try{
+        try {
             const response = await axios.post("http://localhost:3000/api/v1/user/signin", {
                 username: data.email,
                 password: data.password
@@ -31,11 +31,11 @@ export default function SignIn() {
             login(response.data.token);
             navigate('/dashboard')
         }
-        catch(err){
-            if(err.response.status === 401){
-                setError("root", { message: err.response.data.message});
+        catch (err) {
+            if (err.response.status === 401) {
+                setError("root", { message: err.response.data.message });
             }
-            else{
+            else {
                 setError("root", { message: err.message });
             }
         }
@@ -79,7 +79,7 @@ export default function SignIn() {
                     </div>
                 </CardContent>
                 <CardFooter className="flex flex-col items-center justify-center">
-                    <Button className="w-full" size="lg" disabled={isSubmitting}>{isSubmitting? "Please wait...": "Log In"}</Button>
+                    <Button className="w-full" size="lg" disabled={isSubmitting}>{isSubmitting ? "Please wait..." : "Log In"}</Button>
                     <div className="mt-2">
                         Don&apos;t have an account? <Link to="/signup" className="text-semibold underline">Sign Up</Link>
                     </div>

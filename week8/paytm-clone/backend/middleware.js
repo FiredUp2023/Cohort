@@ -17,7 +17,6 @@ const authMiddleware = (req, res, next) => {
         return next();
     }
     catch(err) {
-        console.log(err);
         res.status(403).json({
             message: "Unauthorized :: verification failed"
         })

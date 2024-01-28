@@ -7,6 +7,7 @@ import Signup from './pages/signup.jsx'
 import Signin from './pages/signin.jsx'
 import Dashboard from './pages/dashboard.jsx'
 import { AuthProvider } from './AuthProvider.jsx'
+import Transfer from './pages/transfer.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                     <Route path='/signup' element={<Signup />} />
                     <Route path='/signin' element={<Signin />} />
                     <Route path='/dashboard' element={<Dashboard />} />
+                    <Route path='/transfer/:id' element={<Transfer />} />
                 </Routes>
             </BrowserRouter>
         </AuthProvider>
