@@ -9,6 +9,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button"
 import { Card, CardTitle, CardDescription, CardHeader, CardContent, CardFooter } from "./ui/card";
 import useAuth from "../AuthProvider";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const signinSchema = z.object({
     email: z.string().email(),
@@ -21,6 +22,7 @@ export default function SignIn() {
     })
     const navigate = useNavigate();
     const { login } = useAuth();
+    const { setItem } = useLocalStorage('token');
 
     const onSubmit = async (data) => {
         try {
@@ -29,6 +31,7 @@ export default function SignIn() {
                 password: data.password
             })
             login(response.data.token);
+            setItem(response.data.token)
             navigate('/dashboard')
         }
         catch (err) {

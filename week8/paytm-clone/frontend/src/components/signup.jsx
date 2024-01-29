@@ -9,6 +9,7 @@ import { Button } from "./ui/button"
 import { Card, CardTitle, CardDescription, CardHeader, CardContent, CardFooter } from "./ui/card";
 import { z } from "zod";
 import useAuth from "../AuthProvider";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 const signupSchema = z.object({
     firstName: z.string().min(1, { message: "First Name is required" }),
@@ -23,6 +24,7 @@ export default function SignUp() {
     })
     const navigate = useNavigate();
     const { login } = useAuth();
+    const { setItem } = useLocalStorage('token');
 
     const onSubmit = async (data) => {
         try {
@@ -33,6 +35,7 @@ export default function SignUp() {
                 password: data.password
             })
             login(response.data.token);
+            setItem(response.data.token);
             navigate('/dashboard')
         }
         catch (err) {
