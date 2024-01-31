@@ -1,14 +1,12 @@
 import './App.css'
+import ReviewCard from './components/ReviewCard'
 
 function App() {
 
   return (
     <>
-      <div className='flex justify-between'>
-      <div className='bg-red-400'>hi1</div>
-      <div className='bg-blue-400'>hi2</div>
-      <div className='bg-yellow-400'>hi3</div>
-      <div className='bg-green-400'>hi4</div>
+      <div className='flex justify-center '>
+        <ReviewCard title={"Amount Pending"} amount={"8,23,534"} />
       </div>
     </>
   )
