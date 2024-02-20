@@ -35,9 +35,9 @@ async function updateUser(email: string, {
 
 async function getUser(email: string) {
     const res = await prisma.user.findUnique({
-        where: {email},
+        where: { email },
         select: {
-            email:true,
+            email: true,
             firstName: true,
             lastName: true,
         }

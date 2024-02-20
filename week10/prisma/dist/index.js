@@ -48,6 +48,6 @@ function getUser(email) {
         console.log(res);
     });
 }
-getUser("user6@example.com");
+//getUser("user6@example.com");
 //insertUser("user6@example.com", "user_password", "user", "test");
 //updateUser("user6@example.com", { firstName: "user6", lastName: "test6"})
