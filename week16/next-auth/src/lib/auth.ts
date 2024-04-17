@@ -1,7 +1,6 @@
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
-import { pages } from "next/dist/build/templates/app-page";
 
 export const authConfig = {
   providers: [
